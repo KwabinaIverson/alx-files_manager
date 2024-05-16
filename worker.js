@@ -54,7 +54,9 @@ fileQueue.process(async (job, done) => {
 
 userQueue.process(async (job, done) => {
     const { userId } = job.data;
-    if (!userId) done(new Error('Missing userId'));
+    if (!userId) {
+        done(new Error('Missing userId'));
+    }
     const users = dbClient.db.collection('users');
     const idObject = new ObjectID(userId);
     const user = await users.findOne({ _id: idObject });
